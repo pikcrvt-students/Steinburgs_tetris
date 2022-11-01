@@ -1,9 +1,11 @@
-﻿/*Programmu veidoja: Gļebs Dimitrijevs DP2-1*/
+/*Programmu veidoja: Gļebs Dimitrijevs DP2-1*/
 
 /*Importējam visas nepieciešamās bibliotēkas*/
 #include <SFML/Graphics.hpp>
 #include <time.h>
+#include <iostream>
 
+// Lai katru reizi nerakstīt sf::
 using namespace sf;
 
 /*Konsoles augstums un platums*/
@@ -45,6 +47,8 @@ bool check() {
 /*Main funkcija*/
 int main()
 {
+    //music.play("Tetris-Theme-Tetris-Soundtrack.mp3");
+
     /*Pierakstam laiku*/
     srand(time(0));
 
@@ -144,6 +148,7 @@ int main()
             timer = 0;
         }
 
+        // pirmas figuras lielums
         if (ad) {
             int n = rand() % 7;
             if (a[0].x == 0)
@@ -168,16 +173,21 @@ int main()
         }
 
         dx = 0;
+        // rotacija notiek tikai viena, nevis bezgalīga
         rotate = false;
+
+        // kustiba notiek ik pēc delay sekundēm
         delay = 0.3;
 
-        /*Uzliekam baltu fonu*/
+        /*Uzliekam baltu fonu, notira visu lieko*/
         window.clear(Color::White);
 
+        // figura paliek sava vieta pēc piezemēšanas
         for (int i = 0; i < M; i++)
             for (int j = 0; j < N; j++) {
                 if (field[i][j] == 0)
                     continue;
+                // pieraksta figuras novietojumu
                 tiles.setTextureRect(IntRect(field[i][j] * w, 0, w, w));
                 tiles.setPosition(j * w, i * w);
                 window.draw(tiles);
