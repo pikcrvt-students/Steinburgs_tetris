@@ -2,14 +2,16 @@
 
 /*Importējam visas nepieciešamās bibliotēkas*/
 #include <SFML/Graphics.hpp>
+//#include <SFML/Audio.hpp>
 #include <time.h>
 #include <iostream>
 
-// Lai katru reizi nerakstīt sf::
+// Lai katru reizi nerakstīt sf:: un std::
 using namespace sf;
+using namespace std;
 
 /*Konsoles augstums un platums*/
-const int M = 20;
+const int M = 25;
 const int N = 10;
 
 int field[M][N] = { 0 };
@@ -47,22 +49,35 @@ bool check() {
 /*Main funkcija*/
 int main()
 {
-    //music.play("Tetris-Theme-Tetris-Soundtrack.mp3");
+    //Music music;
 
-    /*Pierakstam laiku*/
+    /*sick flou*/
+    //music.openFromFile("audio/Tetris-Theme-Tetirs-Soundtrack.ogg");
+    //music.setVolume(20);
+
+    // nesanak pievienot
+    //int points = 0;
+
     srand(time(0));
 
     /*Pats logs*/
     RenderWindow window(VideoMode(N * w, M * w), "Tetris!");
 
     /*Bildes mainīgais*/
-    Texture t;
+    Texture texture;
 
     /*Nosakam ceļu līdz mums nepiecešamai bildei*/
-    t.loadFromFile("C:\\Users\\dimit\\Documents\\libraries\\tiles.png");
+    //texture.loadFromFile("C:\\Users\\dimit\\Documents\\libraries\\tiles.png");
+
+    // Gudrāka versija
+    if (!texture.loadFromFile("C:\\Users\\dimit\\Documents\\libraries\\tiles.png")) {
+        cout << "Error" << endl; 
+        return 0;
+    }
+
 
     /*Spēles objekts, struktūra atkarīga no importētās bildes*/
-    Sprite tiles(t);
+    Sprite tiles(texture);
 
 
     /*Mainīgie, kas ļauj kustināt figūru horizontāli*/
@@ -75,7 +90,7 @@ int main()
     /*Main cikls*/
     while (window.isOpen())
     {
-        
+
         float time = clock.getElapsedTime().asSeconds();
         clock.restart();
         timer += time;
@@ -88,18 +103,27 @@ int main()
                 window.close();
 
             /*Pogas, kas atbild par figūras kustību un rotēšanu*/
-            if (event.type == Event::KeyPressed)
-                if (event.key.code == Keyboard::Up)
+            if (event.type == Event::KeyPressed) {
+                if (event.key.code == Keyboard::Up) {
                     rotate = true;
-                else if (event.key.code == Keyboard::Right)
+                }
+                else if (event.key.code == Keyboard::Right) {
                     dx = 1;
-                else if (event.key.code == Keyboard::Left)
+                }
+                else if (event.key.code == Keyboard::Left) {
                     dx = -1;
+                }
+                else if (event.key.code == Keyboard::Q) {
+                    cout << "Spēle tika aizvērta" << endl;
+                    return 0;
+                }
+            }
         }
 
         /*Paatrina kustību uz leju*/
-        if (Keyboard::isKeyPressed(Keyboard::Down))
+        if (Keyboard::isKeyPressed(Keyboard::Down)) {
             delay = 0.05;
+        }
 
         for (int i = 0; i < 4; i++) {
             b[i] = a[i];
@@ -128,11 +152,13 @@ int main()
             }
         }
 
+        // atbild par kustību lejup
         if (timer > delay) {
             for (int i = 0; i < 4; i++) {
                 b[i] = a[i];
                 a[i].y += 1;
             }
+
 
             if (!check()) {
                 for (int i = 0; i < 4; i++)
@@ -145,6 +171,7 @@ int main()
                 }
             }
 
+            // obligati jābūt 0
             timer = 0;
         }
 
@@ -158,8 +185,6 @@ int main()
                 }
             ad = false;
         }
-
-        /*Kad aizpildās līnija, tā pazūd*/
         int k = M - 1;
         for (int i = M - 1; i > 0; i--) {
             int count = 0;
@@ -168,10 +193,13 @@ int main()
                     count++;
                 field[k][j] = field[i][j];
             }
-            if (count < N)
+            if (count < N) {
                 k--;
+            }
         }
+        
 
+        // pa labi, pa kreisi
         dx = 0;
         // rotacija notiek tikai viena, nevis bezgalīga
         rotate = false;
