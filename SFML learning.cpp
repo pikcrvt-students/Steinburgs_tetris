@@ -67,10 +67,10 @@ int main()
     Texture texture;
 
     /*Nosakam ceļu līdz mums nepiecešamai bildei*/
-    //texture.loadFromFile("C:\\Users\\dimit\\Documents\\libraries\\tiles.png");
+    //texture.loadFromFile("tiles.png");
 
     // Gudrāka versija
-    if (!texture.loadFromFile("C:\\Users\\dimit\\Documents\\libraries\\tiles.png")) {
+    if (!texture.loadFromFile("tiles.png")) {
         cout << "Error" << endl; 
         return 0;
     }
