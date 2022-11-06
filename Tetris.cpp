@@ -1,8 +1,8 @@
-﻿/*Programmu veidoja: Gļebs Dimitrijevs DP2-1*/
+/*Programmu veidoja: Gļebs Dimitrijevs DP2-1*/
 
 /*Importējam visas nepieciešamās bibliotēkas*/
 #include <SFML/Graphics.hpp>
-//#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <time.h>
 #include <iostream>
 
@@ -49,11 +49,11 @@ bool check() {
 /*Main funkcija*/
 int main()
 {
-    //Music music;
-
-    /*sick flou*/
-    //music.openFromFile("audio/Tetris-Theme-Tetirs-Soundtrack.ogg");
-    //music.setVolume(20);
+    Music music;
+    
+    music.openFromFile("Tetris-Theme-Tetirs-Soundtrack.ogg");
+    music.setVolume(20);
+    music.play();
 
     // nesanak pievienot
     //int points = 0;
