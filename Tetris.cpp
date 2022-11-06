@@ -49,6 +49,7 @@ bool check() {
 /*Main funkcija*/
 int main()
 {
+    /*Sick flou*/
     Music music;
     
     music.openFromFile("Tetris-Theme-Tetirs-Soundtrack.ogg");
@@ -95,6 +96,7 @@ int main()
         clock.restart();
         timer += time;
 
+        /*Sāk darbību, ir arī pollWait, tas liek gaidīt*/
         Event event;
         while (window.pollEvent(event))
         {
